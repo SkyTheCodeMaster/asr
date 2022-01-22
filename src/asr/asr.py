@@ -37,7 +37,7 @@ class Speech:
   async def _getAsyncText(self,audio,*,executor:concurrent.futures.ProcessPoolExecutor=concurrent.futures.ProcessPoolExecutor):
     loop = asyncio.get_running_loop()
     with executor() as pool:
-      return loop.run_in_executor(pool,lambda a: self._getText(a))
+      return loop.run_in_executor(pool,lambda : self._getText(audio))
 
   async def _asyncFull(self,*,executor:concurrent.futures.ProcessPoolExecutor=concurrent.futures.ProcessPoolExecutor):
-    return await self._getAsyncText(await self._getAsyncMicInput())
+    return await self._getAsyncText(await self._getAsyncMicInput(executor=executor),executor=executor)
