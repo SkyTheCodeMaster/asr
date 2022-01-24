@@ -26,7 +26,7 @@ class Speech:
     except sr.UnknownValueError:
       return None
 
-  def _full(self):
+  def full(self):
     return self._getText(self._getMicInput())
 
   async def _getAsyncMicInput(self,*,executor:concurrent.futures.ProcessPoolExecutor=concurrent.futures.ProcessPoolExecutor):
@@ -39,5 +39,5 @@ class Speech:
     with executor() as pool:
       return loop.run_in_executor(pool,lambda : self._getText(audio))
 
-  async def _asyncFull(self,*,executor:concurrent.futures.ProcessPoolExecutor=concurrent.futures.ProcessPoolExecutor):
+  async def asyncFull(self,*,executor:concurrent.futures.ProcessPoolExecutor=concurrent.futures.ProcessPoolExecutor):
     return await self._getAsyncText(await self._getAsyncMicInput(executor=executor),executor=executor)
