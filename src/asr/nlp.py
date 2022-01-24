@@ -3,7 +3,6 @@ from nltk.tokenize import word_tokenize
 
 import anltk
 
-
 class NLP:
   def extractNe(self,text):
     words = word_tokenize(text)
@@ -26,3 +25,7 @@ class NLP:
         t = tree[i]
         ntags.append({"type":t.label(),"name":t[0]})
     return ntags
+
+  async def fullLemmatize(self,text):
+    words = word_tokenize(text)
+    return [await anltk.lemmatize(word) for word in words]
