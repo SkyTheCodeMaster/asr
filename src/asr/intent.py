@@ -27,3 +27,12 @@ It returns a list of all found keywords."""
       else:
         types[tag["type"]].append(tag["name"])
     return {"keywords":keywords,"nes":types}
+
+def findIntent(text,intents,*,method="extendedKeyword"):
+  """Find the intents of a provided text
+text:str The text you want to find the intent of
+intents:list The valid intents to search for.
+
+method:str The method of finding intents. Must be: `keyword`, `extendedKeyword`"""
+  finder = Intent(text,intents)
+  return getattr(finder,method,"extendedKeyword")()
