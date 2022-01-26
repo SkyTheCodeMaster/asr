@@ -6,7 +6,7 @@ import concurrent.futures
 import nltk
 from nltk.stem import WordNetLemmatizer
 
-lemmatizer = WordNetLemmatizer()
+_lemmatizer = WordNetLemmatizer()
 
 async def run(callable,*,executor:concurrent.futures.ProcessPoolExecutor=concurrent.futures.ProcessPoolExecutor):
   loop = asyncio.get_running_loop()
@@ -14,7 +14,7 @@ async def run(callable,*,executor:concurrent.futures.ProcessPoolExecutor=concurr
     return loop.run_in_executor(pool,callable)
 
 async def lemmatize(word:str,**kwargs):
-  return await run(lambda:lemmatizer(word),**kwargs)
+  return await run(lambda:_lemmatizer(word),**kwargs)
 
 async def download(package:str,**kwargs):
   return await run(lambda:nltk.download(package),**kwargs)
