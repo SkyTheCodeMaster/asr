@@ -29,3 +29,7 @@ class NLP:
   async def fullLemmatize(self,text):
     words = word_tokenize(text)
     return [await anltk.lemmatize(word) for word in words]
+
+  def syncLemmatize(self,text):
+    words = word_tokenize(text)
+    return [anltk._lemmatizer(word) for word in words]
